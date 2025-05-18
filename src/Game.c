@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -11,9 +10,18 @@ E.G. populateAdjacency matrix from the scenario model, etc...*/
 PoliceData* createPoliceData(Game* g) {
 	if (g) {
 		PoliceData* m = (PoliceData*)malloc(sizeof(struct _PoliceData));
+
 		if (m) {
 			//init your struct/containers
-			m->replaceThisWithYourDataContainer = NULL;
+			int scenarioSize = g->N;
+			int i;
+
+			m->scenarioSize = scenarioSize;
+			m->distances = (int**) malloc(scenarioSize * sizeof(int*));
+			for (i = 0; i < scenarioSize; i++){
+				m->distances[i] = (int*) malloc(scenarioSize * sizeof(int));
+			}
+
 			return m;
 		}
 	}
@@ -22,6 +30,14 @@ PoliceData* createPoliceData(Game* g) {
 /*don't forget to free all allocated memory*/
 void destroyPoliceData(PoliceData* m) {
 	if (m) {
+		int i;
+		int scenarioSize = m->scenarioSize;
+
+		for (i = 0; i < scenarioSize; i++){
+			free(m->distances[i]);
+		}
+		
+		free(m->distances);
 		free(m);
 	}
 }

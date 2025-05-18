@@ -11,7 +11,9 @@
 E.G. add a Adjacency Matrix for graph implementation*/
 typedef struct _PoliceData {
 	//add your needed structs/data containers for the Graph here.
-	void* replaceThisWithYourDataContainer;
+	// void* replaceThisWithYourDataContainer;
+	int** distances;
+	int scenarioSize;
 }PoliceData;
 
 typedef struct _BanditData {
