@@ -7,31 +7,35 @@
 #include <time.h>
 #include "Scenario.h"
 #define MAX_LINE_LENGTH 80
-/*ADD HERE YOUR DATA STRUCTURES NEEDED FOR POLICE STRATEGY.
-E.G. add a Adjacency Matrix for graph implementation*/
+
+/**
+ * Represents the data for the police's strategy.
+ */
 typedef struct _PoliceData {
-	//add your needed structs/data containers for the Graph here.
-	// void* replaceThisWithYourDataContainer;
 	int** distances;
 	int scenarioSize;
 }PoliceData;
 
+/**
+ * Represents the data for the bandit's strategy.
+ */
 typedef struct _BanditData {
-	//add your needed structs/data containers here.
-	void* replaceThisWithYourDataContainer;
-}BanditData;
+	int** distances;
+	int scenarioSize;
+} BanditData;
 
-
-
+/**
+ * Represents the game state.
+ */
 typedef struct _Game {
 	Scenario* scenario;
 	char POLICE;
 	char BANDIT;
-	int N;
-	Site policeSite;
-	Site banditSite;
-	PoliceData* policeData;
-	BanditData* banditData;
+	int N; // Size of the scenario
+	Site policeSite; // Current position of the police
+	Site banditSite; // Current position of the bandit
+	PoliceData* policeData; // Data for the police's strategy
+	BanditData* banditData; // Data for the bandit's strategy
 }Game;
 
 Game* createGame(char* fileName);

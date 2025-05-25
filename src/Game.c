@@ -5,14 +5,19 @@
 #include "Game.h"
 #include "Bandit.h"
 #include "Police.h"
-/*ADD HERE YOUR STRUCTURES DATA 
-E.G. populateAdjacency matrix from the scenario model, etc...*/
+
+/**
+ * Creates the data for the police's strategy.
+ *
+ * @param g The game state.
+ * @return The data for the police's strategy.
+ */
 PoliceData* createPoliceData(Game* g) {
 	if (g) {
 		PoliceData* m = (PoliceData*)malloc(sizeof(struct _PoliceData));
 
 		if (m) {
-			//init your struct/containers
+			
 			int scenarioSize = g->N;
 			int i;
 
@@ -27,9 +32,15 @@ PoliceData* createPoliceData(Game* g) {
 	}
 	return NULL;
 }
-/*don't forget to free all allocated memory*/
+
+/**
+ * Destroys the data for the police's strategy.
+ *
+ * @param m The data for the police's strategy.
+ */
 void destroyPoliceData(PoliceData* m) {
 	if (m) {
+
 		int i;
 		int scenarioSize = m->scenarioSize;
 
@@ -42,20 +53,49 @@ void destroyPoliceData(PoliceData* m) {
 	}
 }
 
+/**
+ * Creates the data for the bandit's strategy.
+ *
+ * @param g The game state.
+ * @return The data for the bandit's strategy.
+ */
 BanditData* createBanditData(Game* g) {
 	if (g) {
 		BanditData* r = (BanditData*)malloc(sizeof(struct _BanditData));
+
 		if (r) {
-			//init your struct/containers
-			r->replaceThisWithYourDataContainer = NULL;
+
+			int scenarioSize = g->N;
+			int i;
+
+			r->scenarioSize = scenarioSize;
+			r->distances = (int**) malloc(scenarioSize * sizeof(int*));
+			for (i = 0; i < scenarioSize; i++){
+				r->distances[i] = (int*) malloc(scenarioSize * sizeof(int));
+			}
+
 			return r;
 		}
 	}
 	return NULL;
 }
 
+/**
+ * Destroys the data for the bandit's strategy.
+ *
+ * @param r The data for the bandit's strategy.
+ */
 void destroyBanditData(BanditData* r) {
 	if (r) {
+		
+		int i;
+		int scenarioSize = r->scenarioSize;
+
+		for (i = 0; i < scenarioSize; i++){
+			free(r->distances[i]);
+		}
+
+		free(r->distances);
 		free(r);
 	}
 }
